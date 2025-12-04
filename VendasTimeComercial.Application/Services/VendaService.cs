@@ -13,12 +13,13 @@ public class VendaService(IVendaRepository repository)
         var vendas = await _repository.ObterTodasAsync();
 
         var resultado = vendas
-            .GroupBy(v => v.Vendedor)
-            .Select(g => new VendedorComissaoResponse(
-                g.Key,
-                g.Sum(v => v.Valor),
-                g.Sum(v => ComissaoService.CalcularComissaoDaVenda(v.Valor))
-            )).ToList();
+           .GroupBy(v => v.Vendedor)
+           .Select(g => new VendedorComissaoResponse(
+               g.Key,
+               Math.Round(g.Sum(v => v.Valor), 2),
+               Math.Round(g.Sum(v => ComissaoService.CalcularComissaoDaVenda(v.Valor)), 2)
+           ))
+           .ToList();
 
         return resultado;
     }

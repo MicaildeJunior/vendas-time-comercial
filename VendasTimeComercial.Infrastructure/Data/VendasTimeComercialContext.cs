@@ -25,7 +25,7 @@ public class VendasTimeComercialContext(DbContextOptions<VendasTimeComercialCont
 
             builder.Property(v => v.DataVenda)
                 .HasColumnType("datetime2")
-                .IsRequired(false);
+                .IsRequired();
         });
     }
 }
